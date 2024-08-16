@@ -12,3 +12,43 @@ function fibs(number) {
     previousArray[number - 2] + previousArray[number - 3]
   );
 }
+
+/*
+Build a function mergeSort that takes in an array and returns a sorted array, 
+using a recursive merge sort methodology. 
+*/
+
+function mergeSort(array, low, high) {
+  if (low < high) {
+    const mid = Math.floor((low + high) / 2);
+    mergeSort(array, low, mid);
+    mergeSort(array, mid + 1, high);
+    merge(array, low, mid, high);
+  }
+  return array;
+}
+
+function merge(array, low, mid, high) {
+  let copy = array.slice();
+  let i = low;
+  let j = mid + 1;
+  let k = low;
+  while (i <= mid && j <= high) {
+    if (copy[i] < copy[j]) {
+      array[k] = copy[i];
+      i++;
+    } else {
+      array[k] = copy[j];
+      j++;
+    }
+    k++;
+  }
+  for (; i <= mid; i++) {
+    array[k] = copy[i];
+    k++;
+  }
+  for (; j <= high; j++) {
+    array[k] = copy[j];
+    k++;
+  }
+}
